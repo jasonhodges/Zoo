@@ -1,0 +1,30 @@
+﻿@model List<Zoo.Models.Animal>
+
+@{
+    ViewBag.Title = "Animal";
+}
+
+<h2>Animal</h2>
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Animal Type</legend>
+        
+        @Html.HiddenFor(model => model.Id)
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name, "Animal Name")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("AnimalName", String.Empty)
+        </div>
+        
+        
+        <p>
+            <input type="submit" value="Submit" />
+        </p>
+    </fieldset>
+}
+
+@Html.DropDownListFor(model => model.Name, (SelectList) ViewBag.Animal)

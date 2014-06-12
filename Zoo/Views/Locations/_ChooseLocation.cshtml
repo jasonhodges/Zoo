@@ -1,0 +1,14 @@
+﻿@using System.Web.UI.WebControls
+@*@model IEnumerable<Zoo.Models.Location>*@
+@model Zoo.Models.Location
+
+<div class="label">
+    @Html.LabelFor(model => model.Id, "City")
+</div>
+@Html.DropDownList("Id", ViewBag.Locations as SelectList, String.Empty)
+<a class="btn" href="@Url.Content("~/Locations/Create")" id="locationAddLink">Add New Location</a>
+@Html.ValidationMessageFor(model => model.Id)
+<div id="locationDialog" class="hidden"></div>
+
+<script src="~/Scripts/chooseLocation.js"></script>
+<script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>

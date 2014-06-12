@@ -36,7 +36,8 @@ namespace Zoo.Models
         {
         }
 
-        public DbSet<ZooMemberInfo> ZooMemberInfo { get; set; }
+        //public DbSet<ZooMemberInfo> ZooMemberInfo { get; set; }
+        
 
         //public DbSet<Animal> Animals { get; set; }
 
@@ -54,5 +55,7 @@ namespace Zoo.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<Zoo.Models.Location> Locations { get; set; }
     }
 }

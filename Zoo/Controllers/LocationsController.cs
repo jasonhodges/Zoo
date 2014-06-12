@@ -1,117 +1,127 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using Zoo.Models;
 
 namespace Zoo.Controllers
 {
-    public class ZooKeeperController : Controller
+    public class LocationsController : Controller
     {
-        private AnimalEntites db = new AnimalEntites();
+        private ZooContext db = new ZooContext();
 
-        // GET: ZooKeeper
-        public ViewResult Index()
+        private void SetLocationViewBag(int? Id = null)
         {
-            var animal = db.Animals.OrderBy(a => a.Name);
-
-            return View(animal.ToList());
+            if (Id == null)
+                ViewBag.Locations = new SelectList(db.Locations, "Id", "City");
+            else
+                ViewBag.Locations = new SelectList(db.Locations.ToArray(), "Id", "City");
         }
 
-        // GET: ZooKeeper/Details/5
+        // GET: Locations
+        public ActionResult Index()
+        {
+            return View(db.Locations.ToList());
+        }
+
+        // GET: Locations/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Animal animal = db.Animals.Find(id);
-            if (animal == null)
+            Location location = db.Locations.Find(id);
+            if (location == null)
             {
                 return HttpNotFound();
             }
-            return View(animal);
+            return View(location);
         }
 
-        // GET: ZooKeeper/Create
-        [Authorize(Roles = "canEdit")]
+        // GET: Locations/Create
         public ActionResult Create()
         {
+            SetLocationViewBag();
             return View();
         }
 
-        // POST: ZooKeeper/Create
+        // POST: Locations/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "canEdit")]
-        public ActionResult Create([Bind(Include = "Id,Name")] Animal animal)
+        public ActionResult Create([Bind(Include = "Id,City")] Location location)
         {
             if (ModelState.IsValid)
             {
-                db.Animals.Add(animal);
+                db.Locations.Add(location);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            return View(animal);
+            SetLocationViewBag(location.Id);
+            return View(location);
         }
 
-        // GET: ZooKeeper/Edit/5
-        [Authorize(Roles = "canEdit")]
+        // GET: Locations/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Animal animal = db.Animals.Find(id);
-            if (animal == null)
+            Location location = db.Locations.Find(id);
+            SetLocationViewBag(location.Id);
+            if (location == null)
             {
                 return HttpNotFound();
             }
-            return View(animal);
+            return View(location);
         }
 
-        // POST: ZooKeeper/Edit/5
+        // POST: Locations/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Animal animal)
+        public ActionResult Edit([Bind(Include = "Id,City")] Location location)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(animal).State = EntityState.Modified;
+                db.Entry(location).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(animal);
+            SetLocationViewBag(location.Id);
+            return View(location);
         }
 
-        // GET: ZooKeeper/Delete/5
+        // GET: Locations/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Animal animal = db.Animals.Find(id);
-            if (animal == null)
+            Location location = db.Locations.Find(id);
+            if (location == null)
             {
                 return HttpNotFound();
             }
-            return View(animal);
+            return View(location);
         }
 
-        // POST: ZooKeeper/Delete/5
+        // POST: Locations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Animal animal = db.Animals.Find(id);
-            db.Animals.Remove(animal);
+            Location location = db.Locations.Find(id);
+            db.Locations.Remove(location);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

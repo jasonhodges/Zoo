@@ -51,6 +51,7 @@ namespace Zoo.Controllers
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
+                    //Session["MyMenu"] = null;
                     return RedirectToLocal(returnUrl);
                 }
                 ModelState.AddModelError("", "Invalid username or password.");
@@ -424,6 +425,7 @@ namespace Zoo.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
+            //Session["MyMenu"] = null;
             return RedirectToAction("Index", "Home");
         }
 

@@ -5,6 +5,20 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zoo", "Zoo\Zoo.csproj", "{4AFC2C8F-FCF3-40A9-98EE-499AD83ED6DB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A9CD42E1-728B-4D0C-B1CB-F7FC8CB91206}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZooTwo", "ZooTwo\ZooTwo.csproj", "{ACC94A47-7773-47AC-81A5-E8A7416FD025}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "STUFF", "STUFF", "{0AA3E070-8873-4352-AF72-375A8F9F5F60}"
+	ProjectSection(SolutionItems) = preProject
+		ZooTwo\Properties\OLD_AssemblyInfo.cs = ZooTwo\Properties\OLD_AssemblyInfo.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +29,10 @@ Global
 		{4AFC2C8F-FCF3-40A9-98EE-499AD83ED6DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AFC2C8F-FCF3-40A9-98EE-499AD83ED6DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AFC2C8F-FCF3-40A9-98EE-499AD83ED6DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACC94A47-7773-47AC-81A5-E8A7416FD025}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACC94A47-7773-47AC-81A5-E8A7416FD025}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACC94A47-7773-47AC-81A5-E8A7416FD025}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACC94A47-7773-47AC-81A5-E8A7416FD025}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

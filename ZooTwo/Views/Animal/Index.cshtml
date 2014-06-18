@@ -1,0 +1,52 @@
+﻿@using ZooTwo.Models
+@model IEnumerable<ZooTwo.Models.Animal>
+
+
+@*Have to do it this way since _Layout calls RenderBody before the Scripts*@
+@section scripts 
+{
+    <script type="text/javascript">
+        $('#animal').accordion();
+    </script>
+}
+
+@*@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Zoo Animals</h2>
+
+<p>
+    @Html.ActionLink("Create New Animal", "Create")
+</p>*@
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Specie)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Specie)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.AnimalID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.AnimalID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.AnimalID })
+            </td>
+        </tr>
+    }
+
+
+</table>*@
+<div id="animal">
+    @foreach (Animal animal in Model)
+    {
+        <h3>@animal.Specie</h3>
+        @Html.Action("_GetForAnimal", "Location", new {animalID = animal.AnimalID})
+    }
+</div>

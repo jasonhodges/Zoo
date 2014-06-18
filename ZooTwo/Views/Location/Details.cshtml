@@ -1,0 +1,11 @@
+﻿@model ZooTwo.Models.Location
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>@Model.City</h2>
+
+<div>@Model.Info</div>
+
+@Html.Action("_GetForLocation", "Comment", new {LocationID == Model.LocationID})

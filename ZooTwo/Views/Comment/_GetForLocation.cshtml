@@ -1,0 +1,17 @@
+﻿@using ZooTwo.Models
+@model IEnumerable<ZooTwo.Models.Comment>
+           
+<div id="comments">
+    <ul>
+        @foreach (Comment comment in Model)
+        {
+            <li>@comment.Content</li>
+        }
+    </ul>
+    @*@using (Html.BeginForm("_Submit", "Comment", FormMethod.Post))*@
+    @using (Ajax.BeginForm("_Submit", "Comment", new AjaxOptions {UpdateTargetId = "comments"}))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Action("_CommentForm", new {ViewBag.LocationID})
+    }
+</div>

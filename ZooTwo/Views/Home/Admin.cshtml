@@ -1,0 +1,85 @@
+﻿@model ZooTwo.Models.Animal
+
+@{
+    ViewBag.Title = "Admin";
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="@Url.Content("~/Scripts/knockout-3.1.0.js")"></script>
+    <script type="text/javascript">
+        //View-model will go here
+        function AnimalsViewModel() {
+            var self = this;
+            self.animals = ko.observableArray();
+
+            var baseUri = '@ViewBag.ApiUrl';
+
+            self.create = function (formElement) {
+                //If the form data is valid, post the serialized form data to the web API
+                $(formElement).validate();
+                if ($(formElement).valid()) {
+                    $.post(baseUri, $(formElement).serialize(), null, 'application/json')
+                        .done(function (o) {
+                            // Add the new animal to the view-model
+                            self.animals.push(o); });
+                }
+            }
+            self.update = function (animal) {
+                $.ajax({ type: "PUT", url: baseUri + '/' + animal.Id, data: animal });
+            }
+
+            self.remove = function (animal) {
+                // First remove from the server, then from the view-model
+                $.ajax({ type: "DELETE", url: baseUri + '/' + animal.Id })
+                    .done(function () { self.animals.remove(animal); });
+            }
+
+            $.getJSON(baseUri, self.animals);
+        }
+
+        $(function() {
+            ko.applyBindings(new AnimalsViewModel());
+        });
+    </script>
+}
+<h2>Admin</h2>
+
+<div class="content">
+    <div class="float-left">
+        <ul id="update-animals" data-bind="foreach: animals">
+            <li>
+                <div>
+                    <div class="item">Animal ID</div>
+                    <span data-bind="text: $data.Id"></span>
+                </div>
+                <div>
+                    <div class="item">Specie</div>
+                    <input type="text" data-bind="value: $data.Specie" />
+                </div>
+                <div>
+                    <div class="item">City</div>
+                    <input type="text" data-bind="value: $data.City" />
+                </div>
+                <div>
+                    <input type="button" value="Update" data-bind="click: $root.update" />
+                    <input type="button" value="Delete" data-bind="click: $root.remove" />
+                </div>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="float-right">
+        <h2>Add New Specie</h2>
+        <form id="addAnimal" data-bind="submit: create">
+            @Html.ValidationSummary(true)
+            <fieldset>
+                <legend>Contact</legend>
+                @Html.EditorForModel()
+                <p>
+                    <input type="submit" value="Save" />
+                </p>
+            </fieldset>
+        </form>
+    </div>
+</div>

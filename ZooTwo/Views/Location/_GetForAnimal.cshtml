@@ -1,0 +1,9 @@
+﻿@using ZooTwo.Models
+@model IEnumerable<ZooTwo.Models.Location>
+           
+<div>
+    @foreach (Location location in Model)
+    {
+        <div>@location.City</div>
+    }
+</div>
